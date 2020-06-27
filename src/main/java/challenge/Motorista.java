@@ -101,6 +101,7 @@ public class Motorista {
         }
 
         public MotoristaBuilder withHabilitacao(String habilitacao) {
+            this.habilitacao = habilitacao;
             validarHabilitação();
             return this;
         }
@@ -133,7 +134,7 @@ public class Motorista {
         private void validarIdade() {
             if (this.idade < 0) {
                 throw new IllegalArgumentException("Preencha com uma idade valida");
-            }            
+            }
         }
         
         private void validarPontos() {
