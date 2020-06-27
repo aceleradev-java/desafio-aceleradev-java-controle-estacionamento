@@ -84,21 +84,24 @@ public class Motorista {
 
         public MotoristaBuilder withNome(String nome) {
             this.nome = nome;
+            validarNome();
             return this;
         }
 
         public MotoristaBuilder withIdade(int idade) {
             this.idade = idade;
+            validarIdade();
             return this;
         }
 
         public MotoristaBuilder withPontos(int pontos) {
             this.pontos = pontos;
+            validarPontos();
             return this;
         }
 
         public MotoristaBuilder withHabilitacao(String habilitacao) {
-            this.habilitacao = habilitacao;
+            validarHabilitação();
             return this;
         }
 
@@ -111,6 +114,8 @@ public class Motorista {
         private void validarMotorista() {
             validarHabilitação();
             validarNome();
+            validarIdade();
+            validarPontos();
         }
         
         private void validarHabilitação() {
@@ -122,6 +127,18 @@ public class Motorista {
         private void validarNome() {
             if (this.nome == null || nome.equals("")) {
                 throw new NullPointerException("Preencha o campo nome");
+            }            
+        }
+        
+        private void validarIdade() {
+            if (this.idade < 0) {
+                throw new IllegalArgumentException("Preencha com uma idade valida");
+            }            
+        }
+        
+        private void validarPontos() {
+            if (this.pontos < 0) {
+                throw new IllegalArgumentException("Preencha com uma pontuação válida");
             }            
         }
     }
