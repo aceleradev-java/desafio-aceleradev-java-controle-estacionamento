@@ -102,7 +102,7 @@ public class Motorista {
 
         public MotoristaBuilder withHabilitacao(String habilitacao) {
             this.habilitacao = habilitacao;
-            validarHabilitação();
+            validarHabilitacao();
             return this;
         }
 
@@ -113,15 +113,15 @@ public class Motorista {
         }
         
         private void validarMotorista() {
-            validarHabilitação();
+            validarHabilitacao();
             validarNome();
             validarIdade();
             validarPontos();
         }
         
-        private void validarHabilitação() {
+        private void validarHabilitacao() {
             if (habilitacao == null || habilitacao.equals("")) {
-                throw new NullPointerException("Preencha os campo habilitação");
+                throw new NullPointerException("Preencha o campo habilitação");
             }            
         }
         
