@@ -27,8 +27,27 @@ public class EstacionamentoTest {
     }
 
     @Test(expected = NullPointerException.class)
+    public void deveRetornarErroQuandoMotoristaEstaComHabilitacaoEmBranco() {
+        Motorista.builder().withNome("Ada")
+                .withIdade(17)
+                .withPontos(10)
+                .withHabilitacao("")
+                .build();
+    }
+
+    @Test(expected = NullPointerException.class)
     public void deveRetornarErroQuandoMotoristaNaoTemNome() {
         Motorista.builder()
+                .withIdade(17)
+                .withPontos(10)
+                .withHabilitacao("12213")
+                .build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void deveRetornarErroQuandoMotoristaEstaComNomeEmBranco() {
+        Motorista.builder()
+                .withNome("")
                 .withIdade(17)
                 .withPontos(10)
                 .withHabilitacao("12213")
@@ -46,7 +65,6 @@ public class EstacionamentoTest {
         Motorista.builder()
                 .withPontos(-1);
     }
-
 
     @Test(expected = NullPointerException.class)
     public void deveRetornarErroQuandoNaoTemPlaca() {
@@ -213,6 +231,56 @@ public class EstacionamentoTest {
             estacionamento.estacionar(carro);
         }
 
+    }
+
+    @Test
+    public void casoPrimeiroESegundoSejamSeniorOTerceiroMotoristaPerdeAVaga() {
+        
+        Motorista ada = Motorista.builder().withNome("Ada")
+                .withIdade(60)
+                .withPontos(3)
+                .withHabilitacao("1231")
+                .build();
+        
+        Carro carroBranco = Carro.builder().withCor(Cor.BRANCO).
+                withPlaca("123")
+                .withMotorista(ada)
+                .build();
+        
+        Motorista adao = Motorista.builder().withNome("Adão")
+                .withIdade(60)
+                .withPontos(3)
+                .withHabilitacao("1231")
+                .build();
+        
+        Carro carroPreto = Carro.builder().withCor(Cor.PRETO).
+                withPlaca("123")
+                .withMotorista(adao)
+                .build();
+        
+        estacionamento.estacionar(carroBranco);
+        estacionamento.estacionar(carroPreto);
+        
+        for (int indice = 2; indice <= 10; indice++) {
+            
+            Motorista motorista = Motorista.builder()
+                    .withNome("Motorista " + indice)
+                    .withIdade(23)
+                    .withPontos(3)
+                    .withHabilitacao(Long.toString(current().nextLong()))
+                    .build();
+            
+            Carro carro = Carro.builder()
+                    .withCor(getCor()).
+                    withPlaca("123")
+                    .withMotorista(motorista)
+                    .build();
+            
+            estacionamento.estacionar(carro);
+        }
+        assertEquals(10, estacionamento.carrosEstacionados());
+        assertTrue(estacionamento.carroEstacionado(carroBranco));
+        assertTrue(estacionamento.carroEstacionado(carroPreto));
     }
 
     private Cor getCor() {
