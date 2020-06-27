@@ -104,7 +104,25 @@ public class Motorista {
 
 
         public Motorista build() {
+            validarMotorista();
             return new Motorista(nome, idade, pontos, habilitacao);
+        }
+        
+        private void validarMotorista() {
+            validarHabilitação();
+            validarNome();
+        }
+        
+        private void validarHabilitação() {
+            if (habilitacao == null || habilitacao.equals("")) {
+                throw new NullPointerException("Preencha os campo habilitação");
+            }            
+        }
+        
+        private void validarNome() {
+            if (this.nome == null || nome.equals("")) {
+                throw new NullPointerException("Preencha o campo nome");
+            }            
         }
     }
 }
